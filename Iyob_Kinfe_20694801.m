@@ -4,7 +4,7 @@
 
 %% PRELIMINARY TASK - ARDUINO AND GIT INSTALLATION [10 MARKS]
 a = arduino;
-writeDigitalPin(a, 'D10', 1);
+writeDigitalPin(a, 'D10', 0);
 
 %% TASK 1 - READ TEMPERATURE DATA, PLOT, AND WRITE TO A LOG FILE [20 MARKS]
 
