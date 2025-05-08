@@ -14,7 +14,7 @@ function temp_monitor(a)
 
 % temp_monitor(a)
 % where 'a' is the Arduino odject/function passed to the purpuse build function.
-a = arduino();
+%a = arduino();
     % Initialize LED pins
     green_led = 'D9'; % Green LED pin
     yellow_led = 'D10'; % Yellow LED pin
@@ -43,8 +43,8 @@ a = arduino();
         temp_C = (temp_raw - zero_deg_vol)/Temp_coeff; % Convert to temperature in °C (adjust formula based on sensor)
 
         % Update live plot
-        time_counter = time_counter + 1;
-        temp_data = [temp_data, temp_C];
+        time_counter = time_counter + 1; % itirate time by one second
+        temp_data = [temp_data, temp_C];  
         time_data = [time_data, time_counter];
         plot(time_data, temp_data, 'b');
         drawnow;

@@ -3,7 +3,8 @@
 
 
 %% PRELIMINARY TASK - ARDUINO AND GIT INSTALLATION [10 MARKS]
-a = arduino('A1', 'Uno');
+a = arduino('COM3', 'Uno');
+
 
 for i = 1:10
     %Turn the LED on
@@ -12,12 +13,11 @@ for i = 1:10
     
     %Turn the LED off
     writeDigitalPin(a, 'D10', 0);
-    pause(0.5)
+    pause(0.5) 
 end
 %% TASK 1 - READ TEMPERATURE DATA, PLOT, AND WRITE TO A LOG FILE [20 MARKS]
 
 
-%b) read data 
 duration = 600;
 numReadings = duration; 
 
@@ -26,18 +26,29 @@ timeData = zeros(1, numReadings);
 tempData = zeros(1, numReadings);
 
 % Define constants from data sheet
-zero_deg_vol = 500; % voltage value in mV
-Temp_coeff = 10;  % temprature coefficient in mV/C
+zero_deg_vol = 0.5; % voltage value in V
+Temp_coeff = 0.01;  % temprature coefficient in V/C
 
+%b) read data 
+%duration = 600;
+%numReadings = duration; 
+
+% Initialize arrays to store time data and temprature data
+timeData = zeros(1, numReadings);
+tempData = zeros(1, numReadings);
+
+
+% Set up Arduino connection 
+a = arduino();
 
 % Loop to acquire data every second
 for i = 1:numReadings
     %read the voltage from the sensor 
-    voltage_out = readVoltage(a,'A0');
+    voltage_out = readVoltage(a,'A1');
 
    
     % Convert voltage to temperature
-    temperature = (voltage_out - zero_deg_vol) / Temp_coeff;
+    temperature = (voltage_out - zero_deg_vol)/Temp_coeff;
 
     % Store time and temprature values in designated arrays
     timeData(i) = i;  % Time in second
@@ -63,27 +74,37 @@ title('Temperature vs Time');  % Plot title
 grid on;  % Show grid on the plot
 
 %D)Output to screen formatting 
-fprintf('Data Logging intiated - 5/5/2025');
-fprintf('Location - Nottingham');
-fprintf('\n');
-
-% Temprature reading at 0 second is 0 C
-fprintf('Minute');
-fprintf('Temrature');
+fprintf('Data Logging intiated - 5/5/2025\n');
+fprintf('Location - Nottingham\n');
 fprintf('\n');
 
 % Print the rest of value of temprature using loop
-indices = [60, 120, 180, 240, 360, 420, 480, 540, 600 ];
+indices = [1, 60, 120, 180, 240, 360, 420, 480, 540, 600 ];
+% Temprature reading at 0 second is 0 C
+
+fprintf('Minute  \n', 0);
+fprintf('Temrature', tempData(1));  
+fprintf('\n');
+
+
+% Loop through and display the corresponding time in minutes and temperature
 for i = 1:length(indices)
-    fprintf('Minute %d: %.2f\n', indices(i), timeData(indices(i)));
-    fprintf('Temprature %d: %.2f\n', indices(i), tempData(indices(i)));
-    fprintf('\n');
+    % Access the time and temperature at the current index
+    timeInSeconds = timeData(indices(i));  % Time in seconds
+    temperature = tempData(indices(i));    % Temperature in Celsius
+    
+    % Convert time from seconds to minutes
+    timeInMinutes = timeInSeconds / 60;
+    
+    % Display the result
+    fprintf('Minute     %d\n', timeInMinutes); % Display time in minute
+    fprintf('Temperature: %.2f°C\n', temperature); % Display temrature in C
+    fprintf('\n'); % Gap between two set of data 
 end
 % Display the statistical results
 fprintf('Minimum Temperature: %.2f °C\n', minTemp);
 fprintf('Maximum Temperature: %.2f °C\n', maxTemp);
 fprintf('Average Temperature: %.2f °C\n', avgTemp);
-
 
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
@@ -92,8 +113,8 @@ temp_monitor(a);
 
 %% TASK 3 - ALGORITHMS – TEMPERATURE PREDICTION [25 MARKS]
 
-
-
+a = arduino();
+temp_prediction(a);
 
 %% TASK 4 - REFLECTIVE STATEMENT [5 MARKS]
 
