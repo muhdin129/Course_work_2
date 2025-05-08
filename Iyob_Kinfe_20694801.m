@@ -109,12 +109,12 @@ fprintf('Average Temperature: %.2f °C\n', avgTemp);
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
 
-temp_monitor(a);
+temp_monitor(a);  % Call a function called temp_monitor
 
 %% TASK 3 - ALGORITHMS – TEMPERATURE PREDICTION [25 MARKS]
 
-a = arduino();
-temp_prediction(a);
+
+temp_prediction(a);  % Call a function called temp_prediction
 
 %% TASK 4 - REFLECTIVE STATEMENT [5 MARKS]
 
