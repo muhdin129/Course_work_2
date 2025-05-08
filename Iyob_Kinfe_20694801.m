@@ -80,11 +80,6 @@ fprintf('\n');
 
 % Print the rest of value of temprature using loop
 indices = [1, 60, 120, 180, 240, 360, 420, 480, 540, 600 ];
-% Temprature reading at 0 second is 0 C
-
-fprintf('Minute  \n', 0);
-fprintf('Temrature', tempData(1));  
-fprintf('\n');
 
 
 % Loop through and display the corresponding time in minutes and temperature
