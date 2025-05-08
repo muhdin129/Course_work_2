@@ -3,7 +3,7 @@
 
 
 %% PRELIMINARY TASK - ARDUINO AND GIT INSTALLATION [10 MARKS]
-%a = arduino;
+a = arduino('A1', 'Uno');
 
 for i = 1:10
     %Turn the LED on
@@ -18,7 +18,7 @@ end
 
 
 %b) read data 
-duration = 60;
+duration = 600;
 numReadings = duration; 
 
 % Initialize arrays to store time data and temprature data
@@ -29,8 +29,6 @@ tempData = zeros(1, numReadings);
 zero_deg_vol = 500; % voltage value in mV
 Temp_coeff = 10;  % temprature coefficient in mV/C
 
-% Set up Arduino connection 
-a = arduino();
 
 % Loop to acquire data every second
 for i = 1:numReadings
@@ -65,7 +63,22 @@ title('Temperature vs Time');  % Plot title
 grid on;  % Show grid on the plot
 
 %D)Output to screen formatting 
+fprintf('Data Logging intiated - 5/5/2025');
+fprintf('Location - Nottingham');
+fprintf('\n');
 
+% Temprature reading at 0 second is 0 C
+fprintf('Minute');
+fprintf('Temrature');
+fprintf('\n');
+
+% Print the rest of value of temprature using loop
+indices = [60, 120, 180, 240, 360, 420, 480, 540, 600 ];
+for i = 1:length(indices)
+    fprintf('Minute %d: %.2f\n', indices(i), timeData(indices(i)));
+    fprintf('Temprature %d: %.2f\n', indices(i), tempData(indices(i)));
+    fprintf('\n');
+end
 % Display the statistical results
 fprintf('Minimum Temperature: %.2f °C\n', minTemp);
 fprintf('Maximum Temperature: %.2f °C\n', maxTemp);
@@ -74,8 +87,8 @@ fprintf('Average Temperature: %.2f °C\n', avgTemp);
 
 %% TASK 2 - LED TEMPERATURE MONITORING DEVICE IMPLEMENTATION [25 MARKS]
 
-% Insert answers here
 
+temp_monitor(a);
 
 %% TASK 3 - ALGORITHMS – TEMPERATURE PREDICTION [25 MARKS]
 
